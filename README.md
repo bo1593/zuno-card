@@ -1,25 +1,23 @@
-# ZUNO CARD — موقع المتجر
+# ZUNO CARD — Sultan-inspired storefront update
 
-واجهة عربية RTL بتصميم أسود وذهبي ومتصلة بمشروع Supabase الحالي.
+## What changed
+- Reworked the customer storefront into mobile-first pages inspired by the supplied Sultan Card screenshots, using ZUNO's dark navy/black and gold palette.
+- Added dedicated screens for home, categories, category products, product details, app top-ups, orders, wallet, payment history, favorites, and account.
+- Added date/search/status filters for the signed-in customer's orders.
+- Wallet summary is calculated from the existing `wallets`, `orders`, and `deposits` data.
+- Added a separate wallet/account number field to the B1 payment-method form. It is saved in the existing `payment_methods.account_details` JSON field as `wallet_number`.
+- Kept B1, B2, Supabase project URL/key, existing RPC calls, storage bucket, and Vercel routes.
 
-## النشر على Vercel
-1. فك الضغط عن `ZUNO_CARD_WEBSITE.zip`.
-2. ارفع محتويات مجلد `ZUNO_CARD_SITE` إلى GitHub أو استورد المجلد إلى Vercel.
-3. اختر Framework Preset: Other، واترك Build Command فارغًا، وOutput Directory = `.`.
-4. بعد النشر افتح `/` للمتجر، و`/b1` للإدارة، و`/b2` للعمليات.
+## Deploy
+1. Extract this ZIP.
+2. Replace the files in your GitHub repository with the contents of `ZUNO_CARD_SITE`.
+3. Commit and push to the production branch connected to Vercel.
+4. Vercel should deploy the update automatically.
 
-## الوظائف
-- تسجيل الدخول بالبريد وكلمة المرور، وإنشاء حساب، وGoogle OAuth (يتطلب إعداد Google Redirect URL في Supabase).
-- عرض الأقسام والمنتجات النشطة.
-- الشراء من المحفظة عبر RPC `purchase_product`.
-- طلب شحن مع رفع إيصال إلى bucket خاص `zuno-receipts`.
-- B1 لإدارة المنتجات والأقسام والبنرات وطرق الدفع والعملاء وصلاحيات الموظفين.
-- B2 لمراجعة الإيداعات وتحديث الطلبات ومتابعة سجلات الحالة.
-
-## قبل التشغيل العام
-- تأكد من إضافة دومين Vercel في Supabase Auth > URL Configuration (Site URL وRedirect URLs).
-- أضف طرق الدفع الصحيحة من B1 بعد مراجعتها.
-- اختبر حساب عميل وطلب شراء وإيداع تجريبي قبل استقبال أموال حقيقية.
-- مزودو الشحن الخارجيون/API غير مربوطين بعد؛ الطلبات اليدوية تحتاج تنفيذًا ومراجعة من الإدارة.
-- لوحة B1 تتطلب دور `admin`. حساب الإدارة الموجود في قاعدة البيانات ظهر بدور admin ورقم عضوية 2578.
-- لا تضف أبدًا service_role أو مفاتيح سرية في ملفات الواجهة. المفتاح الموجود هنا هو anon العام الخاضع لـ RLS.
+## Important
+- This package does not change or migrate the Supabase database.
+- Existing Supabase tables/columns and RLS policies must remain available.
+- The customer app still uses Supabase Auth email confirmation as configured in the Supabase project.
+- Favorites are stored locally in the current browser/device; they are not synced across devices.
+- App top-up products are currently displayed from the existing active `products` table. A live external top-up provider/API is not included.
+- Test sign-in, purchase RPC, deposits, wallet, orders, and staff permissions on the deployed site before taking real payments.

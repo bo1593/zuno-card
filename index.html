@@ -1,4 +1,105 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ZUNO CARD</title><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script></head><body><header class="site-head"><a class="brand" href="/">◈ <b>ZUNO <i>CARD</i></b></a><div class="head-actions"><button id="login">دخول / تسجيل</button><a href="#wallet" aria-label="المحفظة">▣</a><a href="#orders" aria-label="طلباتي">☷</a></div></header><main><section class="promo-banner"><div class="promo-copy"><small>ZUNO CARD</small><h1>عالم البطاقات<br><em>والشحن الرقمي</em></h1><p>اختار قسمك واطلب بسهولة وأمان</p></div><div class="promo-mark">ZUNO <b>CARD</b><span>★</span></div></section><div class="welcome-strip">أهلاً بيكم في ZUNO CARD — أفضل العروض والأسعار في مكان واحد ✦</div><section id="store" class="store-section"><div class="search-wrap"><input id="storeSearch" type="search" placeholder="ابحث عن منتج أو قسم..."></div><div class="heading"><div><small>تسوق حسب القسم</small><h2>الأقسام</h2></div><span id="count"></span></div><div id="categories"></div><div class="products-heading"><h2>المنتجات</h2></div><div id="products" class="products">جاري تحميل المنتجات...</div></section><section class="columns account-sections"><article id="wallet" class="panel"><small>YOUR BALANCE</small><h2>محفظتك</h2><h3 id="balance">— ج.م</h3><p>اشحن رصيدك بإرسال طلب وإرفاق إيصال الدفع.</p><button class="gold" id="depositOpen">طلب شحن المحفظة</button></article><article id="orders" class="panel"><small>ORDER TRACKING</small><h2>آخر طلباتك</h2><div id="myorders">سجل الدخول لعرض طلباتك.</div></article></section><footer><b>ZUNO CARD</b><span>© 2026 جميع الحقوق محفوظة</span></footer></main><nav class="mobile-dock"><a href="#store"><span>⌕</span>بحث</a><a href="#wallet"><span>▣</span>المحفظة</a><a class="dock-home" href="#store"><span>◆</span></a><a href="#orders"><span>☷</span>طلباتي</a><button id="dockLogin"><span>♙</span>حسابي</button></nav>
-<div class="modal" id="auth"><div class="box"><button class="x" data-x="auth">×</button><small>WELCOME TO ZUNO</small><h2>حسابك</h2><div class="tabs"><button data-mode="login" class="active">دخول</button><button data-mode="signup">حساب جديد</button></div><input id="email" type="email" placeholder="البريد الإلكتروني"><input id="password" type="password" placeholder="كلمة المرور"><input id="fullname" class="hidden" placeholder="الاسم بالكامل"><button class="gold full" id="authGo">تسجيل الدخول</button><button class="full" id="google">المتابعة باستخدام Google</button><p id="authmsg"></p></div></div>
-<div class="modal" id="deposit"><div class="box"><button class="x" data-x="deposit">×</button><small>WALLET TOP UP</small><h2>طلب شحن المحفظة</h2><input id="amount" type="number" min="1" placeholder="المبلغ بالجنيه"><select id="method"><option value="">طريقة الدفع</option></select><pre id="instructions"></pre><input id="receipt" type="file" accept="image/*"><button class="gold full" id="sendDeposit">إرسال الطلب</button><p id="depmsg"></p></div></div>
-<div class="modal" id="buy"><div class="box"><button class="x" data-x="buy">×</button><small>CONFIRM ORDER</small><h2 id="buyname"></h2><h3 id="buyprice"></h3><input id="qty" type="number" min="1" max="50" value="1"><textarea id="details" placeholder="بيانات تنفيذ الطلب مثل Player ID أو البريد"></textarea><button class="gold full" id="confirmBuy">تأكيد الشراء</button><p id="buym"></p></div></div><div id="toast"></div><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080b18"><title>ZUNO CARD</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<header class="topbar">
+  <button class="back-btn" id="backBtn" aria-label="رجوع">‹</button>
+  <a class="brand" href="#" data-page="home">◈ <b>ZUNO <i>CARD</i></b></a>
+  <div class="head-actions"><button id="headWallet" aria-label="المحفظة">＋</button><span class="currency">🇪🇬 <b id="headBalance">0</b></span><button id="menuBtn" aria-label="القائمة">☰</button></div>
+</header>
+<div class="security-strip">✦ تسوّق واشحن بسهولة وأمان مع <b>ZUNO CARD</b></div>
+<main id="appMain">
+  <section class="page active" id="page-home">
+    <div class="hero-banner">
+      <div class="hero-copy"><small>WELCOME TO ZUNO</small><h1>كل شحنك<br><em>في مكان واحد</em></h1><p>اختار خدمتك وكمّل طلبك بخطوات بسيطة</p></div>
+      <div class="hero-art"><span>◈</span><b>ZUNO</b><small>CARD</small></div>
+    </div>
+    <div class="search-area"><input id="storeSearch" type="search" placeholder="بحث عن منتج أو قسم..."></div>
+    <div class="section-head"><div><small>DISCOVER</small><h2>الأقسام</h2></div><button class="text-link" data-page="categories">عرض الكل ←</button></div>
+    <div id="homeCategories" class="category-grid">جاري تحميل الأقسام...</div>
+    <div class="section-head products-head"><div><small>POPULAR ITEMS</small><h2>منتجات مميزة</h2></div><span id="productCount"></span></div>
+    <div id="homeProducts" class="product-grid">جاري تحميل المنتجات...</div>
+  </section>
+
+  <section class="page" id="page-categories">
+    <div class="page-title"><small>STORE CATEGORIES</small><h1>الأقسام</h1><p>اختار القسم لعرض المنتجات والخدمات المتاحة</p></div>
+    <div id="allCategories" class="category-grid"></div>
+  </section>
+
+  <section class="page" id="page-category">
+    <div class="page-title"><small id="categoryEyebrow">CATEGORY</small><h1 id="categoryTitle">القسم</h1><p id="categoryDescription"></p></div>
+    <div class="search-area compact"><input id="categorySearch" type="search" placeholder="ابحث داخل القسم..."></div>
+    <div id="categoryProducts" class="product-grid"></div>
+  </section>
+
+  <section class="page" id="page-product">
+    <div class="page-title"><small>PRODUCT DETAILS</small><h1 id="productTitle">تفاصيل المنتج</h1></div>
+    <div id="productDetail" class="product-detail"></div>
+  </section>
+
+  <section class="page" id="page-topup">
+    <div class="page-title"><small>APP TOP UP</small><h1>شحن التطبيقات</h1><p>اختار المنتج واكتب بيانات الحساب المطلوبة بدقة</p></div>
+    <div class="notice-card">ⓘ تأكد من صحة Player ID أو User ID قبل تأكيد الطلب.</div>
+    <div id="topupProducts" class="product-grid"></div>
+  </section>
+
+  <section class="page" id="page-orders">
+    <div class="page-title"><small>ORDER TRACKING</small><h1>الطلبات</h1></div>
+    <div class="date-row"><label>من <input id="orderFrom" type="date"></label><label>إلى <input id="orderTo" type="date"></label></div>
+    <div class="search-area compact"><input id="orderSearch" type="search" placeholder="بحث برقم الطلب أو المنتج..."></div>
+    <div class="filter-row" id="orderFilters"><button class="active" data-status="all">الكل <b id="ordersAll">0</b></button><button data-status="pending">انتظار</button><button data-status="processing">قيد التنفيذ</button><button data-status="completed">مقبول</button><button data-status="rejected">مرفوض</button></div>
+    <div id="ordersList" class="record-list">سجّل الدخول لعرض طلباتك.</div>
+  </section>
+
+  <section class="page" id="page-wallet">
+    <div class="page-title"><small>MY WALLET</small><h1>المحفظة</h1></div>
+    <div class="wallet-summary">
+      <article class="balance-card"><small>رصيدك الحالي</small><b id="walletBalance">0.00 ج.م</b></article>
+      <article><small>إجمالي مشترياتك</small><b id="walletSpent">0.00 ج.م</b></article>
+      <article><small>إجمالي الشحن المقبول</small><b id="walletIncoming">0.00 ج.م</b></article>
+    </div>
+    <button class="gold-btn wide" id="walletDeposit">＋ شحن المحفظة</button>
+    <div class="section-head"><div><small>ACTIVITY</small><h2>آخر الحركات</h2></div></div>
+    <div id="walletActivity" class="record-list">سجّل الدخول لعرض الحركات.</div>
+  </section>
+
+  <section class="page" id="page-payments">
+    <div class="page-title"><small>PAYMENT HISTORY</small><h1>دفعاتي</h1><p>تابع حالة طلبات شحن المحفظة</p></div>
+    <div id="paymentsList" class="payment-list">سجّل الدخول لعرض دفعاتك.</div>
+  </section>
+
+  <section class="page" id="page-favorites">
+    <div class="page-title"><small>YOUR SHORTLIST</small><h1>المفضلة</h1></div>
+    <div id="favoritesList" class="product-grid"></div>
+  </section>
+
+  <section class="page" id="page-account">
+    <div class="page-title"><small>MY ACCOUNT</small><h1>حسابي</h1></div>
+    <div class="account-card"><div class="avatar">Z</div><div><b id="accountName">زائر ZUNO</b><small id="accountEmail">سجّل الدخول لإدارة حسابك</small></div></div>
+    <button class="account-action" id="accountLogin">دخول / إنشاء حساب</button>
+    <button class="account-action" data-page="orders">طلباتي</button>
+    <button class="account-action" data-page="wallet">المحفظة</button>
+    <button class="account-action" data-page="payments">دفعاتي</button>
+    <button class="account-action" data-page="favorites">المفضلة</button>
+    <button class="account-action danger" id="logoutBtn">تسجيل الخروج</button>
+  </section>
+</main>
+<nav class="bottom-nav">
+ <button data-page="categories"><span>⌕</span><small>بحث</small></button>
+ <button data-page="topup"><span>▣</span><small>شحن</small></button>
+ <button class="home-nav active" data-page="home"><span>◆</span><small>الرئيسية</small></button>
+ <button data-page="wallet"><span>▣</span><small>المحفظة</small></button>
+ <button data-page="orders"><span>🛒</span><small>الطلبات</small></button>
+</nav>
+
+<div class="modal" id="auth"><div class="modal-box"><button class="close" data-close="auth">×</button><small>WELCOME TO ZUNO</small><h2>حسابك</h2><div class="tabs"><button data-mode="login" class="active">دخول</button><button data-mode="signup">حساب جديد</button></div><input id="email" type="email" placeholder="البريد الإلكتروني"><input id="password" type="password" placeholder="كلمة المرور"><input id="fullname" class="hidden" placeholder="الاسم بالكامل"><button class="gold-btn wide" id="authGo">تسجيل الدخول</button><button class="outline-btn wide" id="google">المتابعة باستخدام Google</button><p id="authmsg" class="form-msg"></p></div></div>
+<div class="modal" id="deposit"><div class="modal-box"><button class="close" data-close="deposit">×</button><small>WALLET TOP UP</small><h2>شحن المحفظة</h2><label>المبلغ<input id="amount" type="number" min="1" placeholder="اكتب المبلغ"></label><label>طريقة الدفع<select id="method"><option value="">اختر طريقة الدفع</option></select></label><div class="payment-instructions" id="instructions">اختر طريقة الدفع لعرض التفاصيل.</div><label>صورة إيصال الدفع<input id="receipt" type="file" accept="image/*"></label><button class="gold-btn wide" id="sendDeposit">إرسال طلب الشحن</button><p id="depmsg" class="form-msg"></p></div></div>
+<div class="modal" id="buy"><div class="modal-box"><button class="close" data-close="buy">×</button><small>CONFIRM ORDER</small><h2 id="buyname"></h2><b id="buyprice" class="price-large"></b><label>الكمية<input id="qty" type="number" min="1" max="50" value="1"></label><label>بيانات المستخدم / Player ID<input id="playerId" placeholder="أدخل ID المستخدم"></label><label>ملاحظات إضافية<textarea id="details" placeholder="أي تفاصيل مطلوبة لتنفيذ الطلب"></textarea></label><button class="gold-btn wide" id="confirmBuy">شراء الآن</button><p id="buym" class="form-msg"></p></div></div>
+<div id="toast"></div><script src="app.js"></script>
+</body></html>
