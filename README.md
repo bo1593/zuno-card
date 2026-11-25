@@ -21,3 +21,20 @@
 - Favorites are stored locally in the current browser/device; they are not synced across devices.
 - App top-up products are currently displayed from the existing active `products` table. A live external top-up provider/API is not included.
 - Test sign-in, purchase RPC, deposits, wallet, orders, and staff permissions on the deployed site before taking real payments.
+
+## Latest requested update
+- Removed the "منتجات مميزة" section from the home page.
+- Replaced the static hero area with a Supabase-driven home banner carousel.
+- Home banners rotate automatically every 1 second; visitors can swipe left/right, use arrows, or tap dots.
+- B1 > البنرات now supports add, edit, order, enable/disable, and delete for home banners.
+- B2 order list now supports search, date range, and status filters; permission/RPC errors and history query errors are surfaced instead of silently ignored.
+- Banners are read from the existing `store_banners` table; no database migration was added.
+
+
+## تحديث صفحة شحن المحفظة وطرق الدفع
+- صفحة مستقلة لشحن الحساب تعرض طرق الدفع النشطة من جدول `payment_methods`.
+- تعرض اسم صاحب المحفظة المستلمة ورقم المحفظة ورقم الكاش مع زر نسخ.
+- لا يمكن إرسال طلب الشحن دون المبلغ واسم ورقم المحفظة التي أرسل منها العميل وصورة إيصال.
+- تحفظ بيانات المحفظة المرسلة في `deposits.payer_wallet_name` و`deposits.payer_wallet_number`.
+- تدار بيانات طريقة الدفع من B1، ويعرض B2 اسم ورقم المحفظة المرسلة مع الإيداع.
+- تم تطبيق إضافة عمودي بيانات المحفظة المرسلة على قاعدة Supabase.
